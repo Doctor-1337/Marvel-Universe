@@ -19,9 +19,9 @@ public class Result {
     @SerializedName("modified")
     @Expose
     private String modified;
-    //@SerializedName("thumbnail")
-    //@Expose
-    //private Thumbnail thumbnail;
+    @SerializedName("thumbnail")
+    @Expose
+    private Thumbnail thumbnail;
     @SerializedName("resourceURI")
     @Expose
     private String resourceURI;
@@ -73,13 +73,13 @@ public class Result {
         this.modified = modified;
     }
 
-  /*  public Thumbnail getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
-    }*/
+    }
 
-//    public void setThumbnail(Thumbnail thumbnail) {
-//        this.thumbnail = thumbnail;
-//    }
+    public void setThumbnail(Thumbnail thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
     public String getResourceURI() {
         return resourceURI;

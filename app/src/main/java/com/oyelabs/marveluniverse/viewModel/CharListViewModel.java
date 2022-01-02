@@ -18,21 +18,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CharListViewModel extends ViewModel {
-    private MutableLiveData<List<Result>> charList;
-    String input;
 
-    public CharListViewModel(String inputName){
+    private MutableLiveData<List<Result>> charList;
+
+    public CharListViewModel(){
         charList = new MutableLiveData<>();
-        inputName = input;
     }
 
     public MutableLiveData<List<Result>> getCharListObserver(){
         return charList;
     }
 
-    public void makeApiCall(){
+    public void makeApiCall(String query){
         APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
-        Call<RootObj> call = apiService.getCharList(input,1,"da74d4f33040f360e6892fa5db8293ae","c1fa3ddcf55c35dc96b526ddcfd499af");
+        Call<RootObj> call = apiService.getCharList(query,1,"da74d4f33040f360e6892fa5db8293ae","c1fa3ddcf55c35dc96b526ddcfd499af");
         call.enqueue(new Callback<RootObj>() {
             @Override
             public void onResponse(Call<RootObj> call, Response<RootObj> response) {
