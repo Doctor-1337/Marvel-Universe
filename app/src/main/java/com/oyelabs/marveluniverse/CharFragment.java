@@ -2,6 +2,7 @@ package com.oyelabs.marveluniverse;
 
 import static com.oyelabs.marveluniverse.MainActivity.flag;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.oyelabs.marveluniverse.model.Item;
 import com.oyelabs.marveluniverse.model.Result;
 import com.oyelabs.marveluniverse.util.ObjectWrapperBinder;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,8 +92,40 @@ public class CharFragment extends Fragment {
         } else {
             return;
         }
-        TextView mTextView = view.findViewById(R.id.textHero);
+        ImageView imageView = view.findViewById(R.id.heroImageLandscape);
+        TextView mTextView = view.findViewById(R.id.heroNameFragment);
+
         mTextView.setText(selectedHero.getName());
+
+        String extension = selectedHero.getThumbnail().getExtension();
+        String path = selectedHero.getThumbnail().getPath();
+        String size = "/landscape_large.";
+        String imagePath = path+size+extension;
+        Uri myUri = Uri.parse(imagePath);
+
+
+        Glide.with(getContext())
+                .load(myUri)
+                .apply(RequestOptions.centerCropTransform())
+                .fitCenter()
+                .into(imageView);
+        TextView descTextView = view.findViewById(R.id.descTextFragment);
+        descTextView.append(selectedHero.getDescription());
+
+        int availableComics = selectedHero.getComics().getAvailable();
+        if(availableComics != 0){
+            List<Item> comicsList = selectedHero.getComics().getItems();
+            for(int i=0;i<comicsList.size();i++) {
+                TextView textView = view.findViewById(R.id.comicsFragmentText);
+                textView.append(comicsList.get(i).getName()+"\n");
+            }
+        }
+
+
+
+
+
+
     }
     @Override
     public void onDestroy() {

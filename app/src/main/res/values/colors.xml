@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#E2E5DE</color>
     <color name="holo_green_light">#8027668E</color>
+    <color name="yellow_neon">#F4FF00</color>
+
 </resources>

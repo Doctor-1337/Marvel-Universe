@@ -25,9 +25,9 @@ public class Result {
     @SerializedName("resourceURI")
     @Expose
     private String resourceURI;
-    //@SerializedName("comics")
-    //@Expose
-    //private Comics comics;
+    @SerializedName("comics")
+    @Expose
+    private Comics comics;
     //@SerializedName("series")
     //@Expose
     //private Series series;
@@ -89,13 +89,13 @@ public class Result {
         this.resourceURI = resourceURI;
     }
 
-//    public Comics getComics() {
-//        return comics;
-//    }
+    public Comics getComics() {
+        return comics;
+    }
 
-//    public void setComics(Comics comics) {
-//        this.comics = comics;
-//    }
+    public void setComics(Comics comics) {
+       this.comics = comics;
+    }
 
 //    public Series getSeries() {
 //        return series;
