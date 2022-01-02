@@ -1,11 +1,14 @@
 package com.oyelabs.marveluniverse;
 
+import static com.oyelabs.marveluniverse.MainActivity.flag;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,5 +86,11 @@ public class CharFragment extends Fragment {
         }
         TextView mTextView = view.findViewById(R.id.textHero);
         mTextView.setText(selectedHero.getName());
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("FragmentOnDestroy","I was called");
+        flag = true;
     }
 }

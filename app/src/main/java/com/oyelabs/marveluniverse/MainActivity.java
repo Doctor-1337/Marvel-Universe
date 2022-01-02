@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,17 +32,20 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements CharListAdapter.ItemClickListener {
 
+    public static boolean flag = true;
     EditText heroName;
     TextView text;
     RecyclerView mRecyclerView;
     private List<Result> heroList;
     private CharListAdapter mAdapter;
     private CharListViewModel mViewModel;
+    private FrameLayout fragmentView;
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = findViewById(R.id.search_button);
+         button = findViewById(R.id.search_button);
          heroName = findViewById(R.id.searchField);
 
          mRecyclerView = findViewById(R.id.recyclerView);
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements CharListAdapter.I
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new CharListAdapter(this,heroList,this);
         mRecyclerView.setAdapter(mAdapter);
-
+        fragmentView = findViewById(R.id.fragmentHolder);
         View.OnClickListener mOnClickListener = v -> searchButtonClicked();
 
 
@@ -86,8 +90,15 @@ public class MainActivity extends AppCompatActivity implements CharListAdapter.I
 
     @Override
     public void onHeroClick(Result hero) {
-        Log.i("Button CLicked",hero.getName());
-        startFragment(hero);
+        if(flag) {
+            flag = false;
+            Log.i("Button CLicked", hero.getName());
+            startFragment(hero);
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            button.setVisibility(View.GONE);
+            heroName.setVisibility(View.GONE);
+            fragmentView.setVisibility(View.VISIBLE);
+        }
     }
     private void startFragment(Result selectedHero){
         Fragment currentFragment = CharFragment.newInstance(selectedHero);
@@ -99,4 +110,39 @@ public class MainActivity extends AppCompatActivity implements CharListAdapter.I
 
 
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.i("on resume","1");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if(flag){
+            Log.i("IN if","pressed 1");
+            mRecyclerView.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+            heroName.setVisibility(View.VISIBLE);
+            fragmentView.setVisibility(View.GONE);
+        }
+        Log.i("Not IN IF","Pressed 2");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("on start ","2");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("on stop","3");
+
+    }
+
 }
