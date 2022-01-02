@@ -1,6 +1,7 @@
 package com.oyelabs.marveluniverse;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -86,5 +87,16 @@ public class MainActivity extends AppCompatActivity implements CharListAdapter.I
     @Override
     public void onHeroClick(Result hero) {
         Log.i("Button CLicked",hero.getName());
+        startFragment(hero);
+    }
+    private void startFragment(Result selectedHero){
+        Fragment currentFragment = CharFragment.newInstance(selectedHero);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragmentHolder, currentFragment, "LOGIN_TAG")
+                .addToBackStack("")
+                .commit();
+
+
     }
 }
