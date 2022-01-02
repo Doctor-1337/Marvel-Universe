@@ -1,5 +1,6 @@
 package com.oyelabs.marveluniverse;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements CharListAdapter.I
         View.OnClickListener mOnClickListener = v -> searchButtonClicked();
 
 
+
         button.setOnClickListener(mOnClickListener);
 
         mViewModel = new ViewModelProvider(this).get(CharListViewModel.class);
@@ -75,14 +77,12 @@ public class MainActivity extends AppCompatActivity implements CharListAdapter.I
     private void searchButtonClicked() {
         String BASE_URL = "https://gateway.marvel.com/";
         String input = heroName.getText().toString().trim();
-        mViewModel.makeApiCall(input);
-
         if(input.equals("")){
             Toast.makeText(this,"Error No Input", Toast.LENGTH_SHORT).show();
             System.out.println("we in if condition");
             return;
         }
-
+        mViewModel.makeApiCall(input);
 
 
 
